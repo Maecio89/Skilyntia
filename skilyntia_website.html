@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skilyntia - Onde o aprender encontra o evoluir</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: linear-gradient(135deg, #1a365d 0%, #2d3748 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1a365d;
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2d3748;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #d4af37;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #d4af37, #f6d860);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.9), rgba(45, 55, 72, 0.8));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #d4af37;
+            font-weight: 300;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #d4af37, #f6d860);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 15px 30px;
+            border: 2px solid white;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #1a365d;
+        }
+
+        /* Floating elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(212, 175, 55, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-icon:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-icon:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
+        .floating-icon:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+        .floating-icon:nth-child(4) { top: 40%; right: 30%; animation-delay: 1s; }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #d4af37;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1a365d;
+        }
+
+        .feature-card p {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        /* Courses Section */
+        .courses {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .course-image {
+            height: 200px;
+            background: linear-gradient(45deg, #1a365d, #2d3748);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-tag {
+            background: #d4af37;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .course-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #1a365d;
+        }
+
+        .course-description {
+            color: #4a5568;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .course-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #1a365d;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #4a5568;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a365d;
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #e2e8f0;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: #d4af37;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #2d3748;
+            padding-top: 20px;
+            color: #a0aec0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features-grid,
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Skilyntia</a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#cursos">Cursos</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <a href="#" class="cta-button">Começar Agora</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="floating-elements">
+            <div class="floating-icon">🎓</div>
+            <div class="floating-icon">💡</div>
+            <div class="floating-icon">🚀</div>
+            <div class="floating-icon">⭐</div>
+        </div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <h1>Skilyntia</h1>
+                <p class="subtitle">Onde o aprender encontra o evoluir</p>
+                <p>Transformamos curiosidade em competência através de conteúdos digitais sofisticados e acessíveis. Seu próximo nível começa aqui.</p>
+                <div class="hero-buttons">
+                    <a href="#cursos" class="btn-primary">Explorar Cursos</a>
+                    <a href="#sobre" class="btn-secondary">Saiba Mais</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="sobre">
+        <div class="container">
+            <div class="section-header">
+                <h2>Por que escolher a Skilyntia?</h2>
+                <p>Oferecemos uma experiência de aprendizado única, desenhada especialmente para iniciantes e curiosos</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Conteúdo Focado</h3>
+                    <p>Cursos desenvolvidos especificamente para iniciantes, com uma progressão clara e objetiva para o sucesso.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Qualidade Premium</h3>
+                    <p>Padrão elevado de produção e curadoria, garantindo uma experiência de aprendizado sofisticada e eficaz.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Comunidade Ativa</h3>
+                    <p>Conecte-se com outros estudantes, compartilhe experiências e cresça junto com uma comunidade engajada.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Aprendizado Flexível</h3>
+                    <p>Estude no seu ritmo, quando e onde quiser. Acesso vitalício aos conteúdos adquiridos.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3>Certificação</h3>
+                    <p>Receba certificados de conclusão reconhecidos e valorize seu currículo profissional.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Atualização Constante</h3>
+                    <p>Conteúdos sempre atualizados com as últimas tendências e práticas do mercado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="cursos">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nossos Cursos</h2>
+                <p>Escolha o caminho ideal para sua jornada de aprendizado</p>
+            </div>
+            
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-image">📈</div>
+                    <div class="course-content">
+                        <div class="course-tag">Skilyntia Academy</div>
+                        <h3 class="course-title">Marketing Digital para Iniciantes</h3>
+                        <p class="course-description">Aprenda os fundamentos do marketing digital e como aplicá-los para fazer seu negócio crescer online.</p>
+                        <div class="course-price">€97</div>
+                        <a href="#" class="btn-primary">Inscrever-se</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-image">💼</div>
+                    <div class="course-content">
+                        <div class="course-tag">Skilyntia Express</div>
+                        <h3 class="course-title">Empreendedorismo Digital</h3>
+                        <p class="course-description">Descubra como transformar suas ideias em negócios lucrativos no mundo digital.</p>
+                        <div class="course-price">€67</div>
+                        <a href="#" class="btn-primary">Inscrever-se</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-image">⚡</div>
+                    <div class="course-content">
+                        <div class="course-tag">Skilyntia Pro</div>
+                        <h3 class="course-title">Produtividade e Gestão</h3>
+                        <p class="course-description">Técnicas avançadas para maximizar sua produtividade e gerenciar melhor seu tempo.</p>
+                        <div class="course-price">€127</div>
+                        <a href="#" class="btn-primary">Inscrever-se</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contato">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Skilyntia</h3>
+                    <p>Transformamos curiosidade em competência através de conteúdos digitais sofisticados e acessíveis.</p>
+                    <p><strong>Onde o aprender encontra o evoluir</strong></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <p><a href="#inicio">Início</a></p>
+                    <p><a href="#cursos">Cursos</a></p>
+                    <p><a href="#sobre">Sobre</a></p>
+                    <p><a href="#contato">Contato</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Produtos</h3>
+                    <p><a href="#">Skilyntia Academy</a></p>
+                    <p><a href="#">Skilyntia Express</a></p>
+                    <p><a href="#">Skilyntia Pro</a></p>
+                    <p><a href="#">Skilyntia Community</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>Email: info@skilyntia.com</p>
+                    <p>Telefone: +351 XXX XXX XXX</p>
+                    <p>Endereço: Porto, Portugal</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Skilyntia. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Animate cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .course-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
